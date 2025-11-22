@@ -49,6 +49,8 @@ public class Program
         builder.Services.AddAuthorization();
 
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowAll", policy =>
@@ -66,6 +68,8 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
 
         app.UseHttpsRedirection();
