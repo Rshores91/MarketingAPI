@@ -2,7 +2,7 @@
   "openapi": "3.0.4",
   "info": {
     "title": "MarketingAPI",
-    "version": "1.0"
+    "version": "v1"
   },
   "paths": {
     "/api/Auth/register": {
@@ -164,8 +164,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Customers/{id}": {
@@ -204,8 +217,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -225,8 +251,21 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Customers/by_email/{email}": {
@@ -264,8 +303,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -301,8 +353,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Users/me": {
@@ -330,8 +395,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Users": {
@@ -368,8 +446,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Users/{id}": {
@@ -408,8 +499,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -429,8 +533,21 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     }
   },
@@ -563,6 +680,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "JWT Authorization header using the Bearer scheme.",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }
