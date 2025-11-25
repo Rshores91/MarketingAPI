@@ -49,6 +49,9 @@ public class CustomersController(ApplicationDbContext context, ILogger<Customers
         if (await _context.Customers.AnyAsync(c => c.Email == customerDto.Email))
             return BadRequest(new { message = "Email already registered" });
 
+        if (await _context.Customers.AnyAsync(c => c.PhoneNumber == customerDto.PhoneNumber))
+            return BadRequest(new { message = "Phone number already registered" });
+
         Customer customer = new()
         {
             Name = customerDto.Name,
