@@ -3,6 +3,7 @@ using System.Text;
 using MarketingAPI.Data;
 using MarketingAPI.Models;
 using MarketingAPI.Services;
+using MarketingAPI.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ public class Program
         builder.Services.AddScoped<IPasswordService, PasswordService>();
         builder.Services.AddScoped<ITokenService, TokenService>();
 
-        // Handle Authorization
+        // Jwt Setup
         IConfigurationSection jwtSettings = builder.Configuration.GetSection("JwtSettings");
         string secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT SecretKey not configured");
 
@@ -56,6 +57,8 @@ public class Program
                 ClockSkew = TimeSpan.Zero
             };
         });
+
+        // Other Authorization handling
         builder.Services.AddAuthorization();
         builder.Services.AddCors(options =>
         {

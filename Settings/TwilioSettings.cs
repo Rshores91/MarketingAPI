@@ -1,4 +1,4 @@
-namespace MarketingAPI;
+namespace MarketingAPI.Settings;
 
 public class TwilioSettings
 {

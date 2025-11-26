@@ -1,9 +1,9 @@
 using MarketingAPI.Data;
 using MarketingAPI.Models;
 using MarketingAPI.Models.DTOs;
+using MarketingAPI.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
@@ -14,7 +14,7 @@ namespace MarketingAPI.Controllers;
 /// </summary>
 /// <param name="context"></param>
 /// <param name="logger"></param>
-/// <param name="configuration"></param>
+/// <param name="twilioSettings"></param>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
