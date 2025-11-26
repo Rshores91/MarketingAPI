@@ -2,7 +2,7 @@
   "openapi": "3.0.4",
   "info": {
     "title": "MarketingAPI",
-    "version": "1.0"
+    "version": "v1"
   },
   "paths": {
     "/api/Auth/register": {
@@ -164,8 +164,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Customers/{id}": {
@@ -204,8 +217,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -225,8 +251,21 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Customers/by_email/{email}": {
@@ -264,8 +303,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -301,8 +353,109 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/Sms/send": {
+      "post": {
+        "tags": [
+          "Sms"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/Sms/bulk": {
+      "post": {
+        "tags": [
+          "Sms"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkSmsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkSmsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkSmsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Users/me": {
@@ -330,8 +483,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Users": {
@@ -368,8 +534,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     },
     "/api/Users/{id}": {
@@ -408,8 +587,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -429,13 +621,121 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
       }
     }
   },
   "components": {
     "schemas": {
+      "BulkSmsDto": {
+        "type": "object",
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromState": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromZip": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "toCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "toState": {
+            "type": "string",
+            "nullable": true
+          },
+          "toZip": {
+            "type": "string",
+            "nullable": true
+          },
+          "toCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "messageSid": {
+            "type": "string",
+            "nullable": true
+          },
+          "smsSid": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "messageStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "optOutType": {
+            "type": "string",
+            "nullable": true
+          },
+          "messagingServiceSid": {
+            "type": "string",
+            "nullable": true
+          },
+          "numMedia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "referralNumMedia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numSegments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "messageTemplate": {
+            "type": "string",
+            "nullable": true
+          },
+          "recipientTag": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CustomerDto": {
         "required": [
           "email",
@@ -533,6 +833,20 @@
         },
         "additionalProperties": false
       },
+      "SmsDto": {
+        "type": "object",
+        "properties": {
+          "recipient": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UserDto": {
         "type": "object",
         "properties": {
@@ -563,6 +877,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "JWT Authorization header using the Bearer scheme.",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }
