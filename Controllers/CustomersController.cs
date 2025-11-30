@@ -54,7 +54,7 @@ public class CustomersController(ApplicationDbContext context, ILogger<Customers
         PhoneNumber phoneNumber = phoneUtil.Parse(customerDto.PhoneNumber, "US");
         string formattedPhoneNumber = phoneUtil.Format(phoneNumber, PhoneNumberFormat.E164);
 
-        if (await _context.Customers.AnyAsync(_ => formattedPhoneNumber == customerDto.PhoneNumber))
+        if (await _context.Customers.AnyAsync(c => c.PhoneNumber == customerDto.PhoneNumber))
             return BadRequest(new { message = "Phone number already registered" });
 
         Customer customer = new()

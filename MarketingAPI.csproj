@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="MarketingApi.Test\**" /> <!-- Excludes .cs files in Test directory -->
+    <Compile Remove="Test\**" />
   </ItemGroup>
 
   <ItemGroup>

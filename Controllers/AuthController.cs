@@ -84,8 +84,7 @@ public class AuthController(ApplicationDbContext context, IPasswordService passw
         if (user is null)
             return Unauthorized(new { message = "Invalid username or password." });
 
-        var verificationResult = _passwordService.VerifyPassword(user, loginDto.Password, user.PasswordHash);
-        if (verificationResult == PasswordVerificationResult.Failed)
+        if (_passwordService.VerifyPassword(user, loginDto.Password, user.PasswordHash) != PasswordVerificationResult.Success)
             return Unauthorized(new { message = "Invalid username or password." });
 
         if (!user.IsActive)

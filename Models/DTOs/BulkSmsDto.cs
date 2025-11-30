@@ -5,7 +5,7 @@ namespace MarketingAPI.Models.DTOs;
 /// <summary>
 /// Data transfer object for sending bulk SMS.
 /// </summary>
-public class BulkSmsDto : SmsRequest
+public class BulkSmsDto
 {
     /// <summary>
     /// The formatted string for the message. Formatted as "Hi {name}, we are having a party on Friday!"

@@ -112,6 +112,6 @@ public class UsersController(ApplicationDbContext context, ILogger<UsersControll
 
         _logger.LogInformation("User deleted: {Username}", user.Username);
 
-        return NoContent();
+        return Ok();
     }
 }

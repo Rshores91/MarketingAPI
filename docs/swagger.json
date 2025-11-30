@@ -458,6 +458,50 @@
         ]
       }
     },
+    "/api/Sms/sms": {
+      "post": {
+        "tags": [
+          "Sms"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [
+              "Bearer"
+            ]
+          }
+        ]
+      }
+    },
     "/api/Users/me": {
       "get": {
         "tags": [
@@ -644,87 +688,6 @@
       "BulkSmsDto": {
         "type": "object",
         "properties": {
-          "accountSid": {
-            "type": "string",
-            "nullable": true
-          },
-          "from": {
-            "type": "string",
-            "nullable": true
-          },
-          "to": {
-            "type": "string",
-            "nullable": true
-          },
-          "fromCity": {
-            "type": "string",
-            "nullable": true
-          },
-          "fromState": {
-            "type": "string",
-            "nullable": true
-          },
-          "fromZip": {
-            "type": "string",
-            "nullable": true
-          },
-          "fromCountry": {
-            "type": "string",
-            "nullable": true
-          },
-          "toCity": {
-            "type": "string",
-            "nullable": true
-          },
-          "toState": {
-            "type": "string",
-            "nullable": true
-          },
-          "toZip": {
-            "type": "string",
-            "nullable": true
-          },
-          "toCountry": {
-            "type": "string",
-            "nullable": true
-          },
-          "messageSid": {
-            "type": "string",
-            "nullable": true
-          },
-          "smsSid": {
-            "type": "string",
-            "nullable": true,
-            "deprecated": true
-          },
-          "body": {
-            "type": "string",
-            "nullable": true
-          },
-          "messageStatus": {
-            "type": "string",
-            "nullable": true
-          },
-          "optOutType": {
-            "type": "string",
-            "nullable": true
-          },
-          "messagingServiceSid": {
-            "type": "string",
-            "nullable": true
-          },
-          "numMedia": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "referralNumMedia": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "numSegments": {
-            "type": "integer",
-            "format": "int32"
-          },
           "messageTemplate": {
             "type": "string",
             "nullable": true
@@ -843,6 +806,93 @@
           "message": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SmsRequest": {
+        "type": "object",
+        "properties": {
+          "accountSid": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromState": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromZip": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "toCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "toState": {
+            "type": "string",
+            "nullable": true
+          },
+          "toZip": {
+            "type": "string",
+            "nullable": true
+          },
+          "toCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "messageSid": {
+            "type": "string",
+            "nullable": true
+          },
+          "smsSid": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "messageStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "optOutType": {
+            "type": "string",
+            "nullable": true
+          },
+          "messagingServiceSid": {
+            "type": "string",
+            "nullable": true
+          },
+          "numMedia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "referralNumMedia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numSegments": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
