@@ -2,6 +2,7 @@ using MarketingAPI.Data;
 using MarketingAPI.Models;
 using MarketingAPI.Models.DTOs;
 using MarketingAPI.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,6 +82,10 @@ public class AuthController(ApplicationDbContext context, IPasswordService passw
         User? user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginDto.Username);
 
         if (user is null)
+            return Unauthorized(new { message = "Invalid username or password." });
+
+        var verificationResult = _passwordService.VerifyPassword(user, loginDto.Password, user.PasswordHash);
+        if (verificationResult == PasswordVerificationResult.Failed)
             return Unauthorized(new { message = "Invalid username or password." });
 
         if (!user.IsActive)

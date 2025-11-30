@@ -1,5 +1,6 @@
 
 using System.Text;
+using System.Threading.Tasks;
 using MarketingAPI.Data;
 using MarketingAPI.Models;
 using MarketingAPI.Services;
@@ -45,6 +46,7 @@ public class Program
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
+            options.IncludeErrorDetails = true;
             options.TokenValidationParameters = new()
             {
                 ValidateIssuer = true,
@@ -55,6 +57,20 @@ public class Program
                 ValidAudience = jwtSettings["Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
                 ClockSkew = TimeSpan.Zero
+            };
+
+            options.Events = new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    Console.WriteLine($"JWT auth failed: {context.Exception}");
+                    return Task.CompletedTask;
+                },
+                OnChallenge = context =>
+                {
+                    Console.WriteLine($"JWT challenge: {context.Error} - {context.ErrorDescription}");
+                    return Task.CompletedTask;
+                }
             };
         });
 

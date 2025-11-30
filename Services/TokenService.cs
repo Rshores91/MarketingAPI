@@ -6,9 +6,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace MarketingAPI.Services;
 
+/// <summary>
+/// Service for generating JWT tokens.
+/// </summary>
+/// <param name="configuration">The application configuration.</param>
 public class TokenService(IConfiguration configuration) : ITokenService
 {
     private readonly IConfiguration _configuration = configuration;
+
+    /// <summary>
+    /// Generates a JWT token for the specified user.
+    /// </summary>
+    /// <param name="user">The user to generate the token for.</param>
+    /// <returns>The generated JWT token string.</returns>
     public string GenerateToken(User user)
     {
         IConfigurationSection jwtSettings = _configuration.GetSection("JwtSettings");

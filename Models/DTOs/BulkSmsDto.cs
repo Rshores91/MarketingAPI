@@ -2,6 +2,9 @@ using Twilio.AspNet.Common;
 
 namespace MarketingAPI.Models.DTOs;
 
+/// <summary>
+/// Data transfer object for sending bulk SMS.
+/// </summary>
 public class BulkSmsDto : SmsRequest
 {
     /// <summary>

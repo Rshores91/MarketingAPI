@@ -23,8 +23,6 @@ namespace MarketingAPI.Controllers;
 [Authorize]
 public class SmsController(ApplicationDbContext context, ILogger<UsersController> logger, TwilioSettings twilioSettings) : ControllerBase
 {
-    string? accountSsid;
-    string? authToken;
     private readonly ApplicationDbContext _context = context;
     private readonly ILogger<UsersController> _logger = logger;
     private readonly TwilioSettings _twilioSettings = twilioSettings;
@@ -134,6 +132,11 @@ public class SmsController(ApplicationDbContext context, ILogger<UsersController
     }
     
     
+    /// <summary>
+    /// Receives an incoming SMS message from Twilio.
+    /// </summary>
+    /// <param name="dto">The SMS request data.</param>
+    /// <returns>The TwiML response.</returns>
     [HttpPost("sms")]
     [ValidateRequest]
     public TwiMLResult ReceiveMessage(SmsRequest dto)
@@ -153,9 +156,28 @@ public class SmsController(ApplicationDbContext context, ILogger<UsersController
 /// </summary>
 public struct MessageResult
 {
+    /// <summary>
+    /// The phone number the message was sent to.
+    /// </summary>
     public string PhoneNumber { get; set; }
+
+    /// <summary>
+    /// The Twilio Message SID.
+    /// </summary>
     public string MessageSid { get; set; }
+
+    /// <summary>
+    /// The status of the message.
+    /// </summary>
     public string Status { get; set; }
+
+    /// <summary>
+    /// Whether the message was sent successfully.
+    /// </summary>
     public bool Success { get; set; }
+
+    /// <summary>
+    /// Any error message returned by Twilio.
+    /// </summary>
     public string Error { get; set; }
 }

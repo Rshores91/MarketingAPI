@@ -97,6 +97,76 @@ public class CustomersController(ApplicationDbContext context, ILogger<Customers
     }
 
     /// <summary>
+    /// Returns aggregated customer metrics for the manager dashboard.
+    /// </summary>
+    [HttpGet("metrics")]
+    [Authorize]
+    public async Task<ActionResult<CustomerMetricsDto>> GetCustomerMetrics()
+    {
+        List<Customer> customers = await _context.Customers.ToListAsync();
+
+        CustomerMetricsDto metrics = new()
+        {
+            TotalCustomers = customers.Count
+        };
+
+        metrics.OptedInCustomers = customers.Count(c => c.AgreeToSms);
+        metrics.OptedOutCustomers = metrics.TotalCustomers - metrics.OptedInCustomers;
+        metrics.OptInRate = metrics.TotalCustomers == 0
+            ? 0
+            : Math.Round((double)metrics.OptedInCustomers / metrics.TotalCustomers * 100, 1);
+
+        metrics.InterestBreakdown = customers
+            .GroupBy(c => c.Interest)
+            .OrderByDescending(g => g.Count())
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        DateTime today = DateTime.Today;
+        metrics.UpcomingBirthdays = customers
+            .Select(c =>
+            {
+                int dayThisYear = Math.Min(c.Birthday.Day, DateTime.DaysInMonth(today.Year, c.Birthday.Month));
+                DateTime nextBirthday = new(today.Year, c.Birthday.Month, dayThisYear);
+                if (nextBirthday < today)
+                {
+                    int nextYear = today.Year + 1;
+                    int adjustedDay = Math.Min(c.Birthday.Day, DateTime.DaysInMonth(nextYear, c.Birthday.Month));
+                    nextBirthday = new DateTime(nextYear, c.Birthday.Month, adjustedDay);
+                }
+
+                return new UpcomingBirthdayDto
+                {
+                    Name = c.Name,
+                    Interest = c.Interest,
+                    Birthday = c.Birthday,
+                    DaysUntilBirthday = (nextBirthday - today).Days
+                };
+            })
+            .OrderBy(b => b.DaysUntilBirthday)
+            .Take(5)
+            .ToList();
+
+        return Ok(metrics);
+    }
+
+    /// <summary>
+    /// Returns the distinct list of customer interests for targeting.
+    /// </summary>
+    [HttpGet("interests")]
+    [Authorize]
+    public async Task<ActionResult<IEnumerable<string>>> GetCustomerInterests()
+    {
+        List<string> interests = await _context.Customers
+            .Where(c => !string.IsNullOrWhiteSpace(c.Interest))
+            .Select(c => c.Interest)
+            .Distinct()
+            .OrderBy(i => i)
+            .ToListAsync();
+
+        return Ok(interests);
+    }
+
+    /// <summary>
     /// 
     /// </summary>
     /// <param name="id"></param>
