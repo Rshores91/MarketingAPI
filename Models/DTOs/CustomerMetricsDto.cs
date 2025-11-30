@@ -31,21 +31,10 @@ public class CustomerMetricsDto
     /// <summary>
     /// Breakdown of customers by interest tag.
     /// </summary>
-    public Dictionary<string, int> InterestBreakdown { get; set; } = new();
+    public Dictionary<string, int> InterestBreakdown { get; set; } = [];
 
     /// <summary>
     /// Next upcoming birthdays for quick reference.
     /// </summary>
     public List<UpcomingBirthdayDto> UpcomingBirthdays { get; set; } = [];
-}
-
-/// <summary>
-/// DTO representing an upcoming customer birthday.
-/// </summary>
-public class UpcomingBirthdayDto
-{
-    public string Name { get; set; } = string.Empty;
-    public string Interest { get; set; } = string.Empty;
-    public DateTime Birthday { get; set; }
-    public int DaysUntilBirthday { get; set; }
 }
